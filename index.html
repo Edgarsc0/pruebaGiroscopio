@@ -23,7 +23,10 @@ function toRadians(degrees) {
 function getNorteGeografico(position) {
   const { heading } = position.coords;
   const norteGeografico = (360 - heading) % 360;
-  norteGeograficoEl.innerHTML = `La dirección del norte geográfico es: ${norteGeografico.toFixed(2)} grados`;
+  norteGeograficoEl.innerHTML = `La dirección del norte geográfico es: ${norteGeografico.toFixed(2)} grados
+  <br>
+  ${JSON.stringify(heading)}
+  `;
 }
 
 // Función de error si falla la geolocalización

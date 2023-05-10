@@ -9,14 +9,30 @@
 </head>
 
 <body>
-    <div id="info"></div>
+    <div id="norteGeografico"></div>
     <script>
-        window.addEventListener("deviceorientation", function (event) {
-            /*alpha = Math.round(event.alpha);
-            beta = Math.round(event.beta);
-            gamma = Math.round(event.gamma);*/
-            document.getElementById("info").innerHTML=`aplha > ${event.alpha}<br>, beta > ${event.beta}<br>, gamma > ${event.gamma}`
-        }, true);
+// Obtenemos la referencia al elemento HTML donde mostraremos la información
+const norteGeograficoEl = document.getElementById('norteGeografico');
+
+// Función para convertir los grados a radianes
+function toRadians(degrees) {
+  return degrees * (Math.PI / 180);
+}
+
+// Función para calcular la dirección del norte geográfico
+function getNorteGeografico(position) {
+  const { heading } = position.coords;
+  const norteGeografico = (360 - heading) % 360;
+  norteGeograficoEl.innerHTML = `La dirección del norte geográfico es: ${norteGeografico.toFixed(2)} grados`;
+}
+
+// Función de error si falla la geolocalización
+function geolocationError(error) {
+  console.error('Error de geolocalización:', error);
+}
+
+// Pedimos permiso para acceder a la ubicación del dispositivo
+navigator.geolocation.getCurrentPosition(getNorteGeografico, geolocationError, { enableHighAccuracy: true, maximumAge: 0 });
 
     </script>
 </body>
